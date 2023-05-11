@@ -40,7 +40,7 @@ public class Block {
         return type;
     }
 
-    public void setName(String type) {
+    public void setType(String type) {
         this.type = type;
     }
 

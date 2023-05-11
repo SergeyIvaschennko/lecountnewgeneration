@@ -48,7 +48,7 @@ public class AddNumberHistory {
     }
 
     @DeleteMapping("/history/{id}")
-    public String deletePhoneById(@PathVariable("id") int id) {
+    public String deleteBLockById(@PathVariable("id") int id) {
         return blockService.delete(id);
     }
 
