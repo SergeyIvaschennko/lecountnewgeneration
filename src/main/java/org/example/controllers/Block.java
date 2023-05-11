@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="block")
-public class Phone {
+public class Block {
     @Id
     @Column(name="id")
     private int id;
@@ -19,10 +19,10 @@ public class Phone {
     private int amount;
 
 
-    public Phone() {
+    public Block() {
     }
 
-    public Phone(int id, String type, int amount) {
+    public Block(int id, String type, int amount) {
         this.id = id;
         this.type = type;
         this.amount = amount;

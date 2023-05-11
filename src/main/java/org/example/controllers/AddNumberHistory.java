@@ -12,7 +12,7 @@ public class AddNumberHistory {
     private int id = 1;
 
     @Autowired
-    private PhoneService phoneService;
+    private BlockService blockService;
 
     @PostMapping("/greennumber")
     @ResponseBody
@@ -24,8 +24,8 @@ public class AddNumberHistory {
                 + "<div id = 'money-text'>" + "+" + number + " ₽" +"</div>"
                 + "</div>";
         history += html;
-        Phone phone = new Phone(id, city, number);
-        phoneService.create(phone);
+        Block block = new Block(id, city, number);
+        blockService.create(block);
         id += 1;
         // Возвращаем обновленное значение суммы
         return history;
@@ -40,8 +40,8 @@ public class AddNumberHistory {
                 + "<div id = 'money-text'>" + "-" + number + " ₽" +"</div>"
                 + "</div>";
         history += html;
-        Phone phone = new Phone(id, city, number);
-        phoneService.create(phone);
+        Block block = new Block(id, city, number);
+        blockService.create(block);
         id += 1;
         // Возвращаем обновленное значение суммы
         return history;
@@ -49,7 +49,7 @@ public class AddNumberHistory {
 
     @DeleteMapping("/history/{id}")
     public String deletePhoneById(@PathVariable("id") int id) {
-        return phoneService.delete(id);
+        return blockService.delete(id);
     }
 
 }
