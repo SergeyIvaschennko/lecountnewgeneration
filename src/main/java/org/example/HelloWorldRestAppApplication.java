@@ -6,13 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class HelloWorldRestAppApplication extends SpringBootServletInitializer{
-
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//		return builder.sources(HelloWorldRestAppApplication.class);
-//	}
-
+public class HelloWorldRestAppApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(HelloWorldRestAppApplication.class, args);
     }

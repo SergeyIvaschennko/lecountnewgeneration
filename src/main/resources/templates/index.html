@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:Bold,600' rel='stylesheet'>
+    <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>lecount</title>
+</head>
+<body>
+
+<div class = "flex-containerr">
+    <div class = "logo">l e c o u n t</div>
+    <a class="welc" th:href="@{/logout}">
+        <img src="/logout.png" alt="Выйти">
+    </a>
+</div>
+
+<div class = "main">
+    <div class = "lin1">
+        <div class = "lin11">
+            <h1 >в а ш &nbspб а л а н с</h1>
+            <div sec:authorize="isAuthenticated()" id = "totalSum" th:text="${totalIncome - totalExpense} + ' ₽'">0 ₽</div>
+            <div class = "two-butt">
+                <button id = "open-modal-btn">пополнить</button>
+                <button id = "open-red-modal-btn">вычесть</button>
+            </div>
+        </div>
+        <div class = "lin12">
+            <h1 id = "black">м е с я ц &nbsp д е к а б р ь</h1>
+            <div class = "moneybox" id = "income">
+                <h4 id = "rev-text">доход</h4>
+                <h4 sec:authorize="isAuthenticated()" id = "totalgreenSum" th:text="'+' + ${totalIncome} + ' ₽'">0</h4>
+            </div>
+            <div class = "moneybox" id = "spend">
+                <h4 id = "rev-text">расход</h4>
+                <h4 sec:authorize="isAuthenticated()" id = "totalredSum" th:text="'-' + ${totalExpense} + ' ₽'">0</h4>
+            </div>
+
+            <div class="circle">
+                <div class="inner-circle"></div>
+            </div>
+        </div>
+    </div>
+    <div class = "lin2">
+        <h11 id = "marg20">и с т о р и я</h11>
+        <div class = "lin22">
+            <div th:each="block :${blocks}" th:reverse="true" id="history" th:if="${user.id} == ${block.createdBy.id}">
+                <div th:class="${block.type == 'доход' ? 'green' : 'red'}">
+                    <div class = "flex-container">
+                        <div id = 'rev-text' th:text = "${block.type}"></div>
+                        <a th:href="@{/life/delete/{id}(id=${block.id})}" class="delete-link">&times;</a>
+                    </div>
+                    <span th:if="${block.type == 'доход'}">
+                        <div id = 'money-text' th:text ="'+' + ${block.amount} + ' ₽'"></div>
+                    </span>
+                    <span th:if="${block.type == 'расход'}">
+                        <div id = 'money-text' th:text ="'-' + ${block.amount} + ' ₽'"></div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="modal" method="post" th:action="@{/life/green}" th:object="${block}">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h12>введите сумму</h12>
+        <input
+                type="text"
+                id="amount"
+                name="amount"
+                th:field="*{amount}">
+        <button id="add-number-btn">добавить</button>
+    </div>
+</form>
+
+<form class="red-modal" method="post" th:action="@{/life/red}" th:object="${block}">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h12>введите сумму</h12>
+        <input
+                type="text"
+                id="amount1"
+                name="amount"
+                th:field="*{amount}">
+        <button id="add-red-number-btn">добавить</button>
+    </div>
+
+</form>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Обработчик клика на кнопке "Добавить число"
+        $("#open-modal-btn").click(function () {
+            $(".modal").fadeIn();
+        });
+
+        $("#open-red-modal-btn").click(function () {
+            $(".red-modal").fadeIn();
+        });
+
+        // Обработчик клика на кнопке закрытия модального окна
+        $(".close-btn").click(function () {
+            $(".modal").fadeOut();
+        });
+        $(".close-btn").click(function () {
+            $(".red-modal").fadeOut();
+        });
+
+    });
+
+</script>
+</body>
+</html>

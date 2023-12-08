@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.container {
+    margin-top: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 500px;
+}
+h1 {
+    text-align: left;
+    margin-bottom: 20px;
+    color: #333333;
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+}
+input[type="text"] {
+    width: 100%;
+    height: 62px;
+    padding: 10px;
+    border: 1.3px solid #0C134F;
+    border-radius: 5px;
+    font-size: 21px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+input[type="password"] {
+    width: 100%;
+    height: 62px;
+    padding: 10px;
+    border: 1.3px solid #0C134F;
+    border-radius: 5px;
+    font-size: 21px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: normal;
+}
+button[type="submit"] {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: 1px solid #333333;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    font-size: 21px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    margin: center;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    margin-top: 20px;
+}
+
+.line {
+    margin-top: 30px;
+    width: 100%;
+    border-bottom: 1px solid #c1c1c1;
+    opacity: 0.7;
+}
+
+p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    margin-bottom: 0;
+    text-align: right;
+    color: #575757;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+a {
+    text-decoration: none;
+    color: #0075ff;
+}
+#a1 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+
+
+

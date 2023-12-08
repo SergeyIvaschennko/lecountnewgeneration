@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:Bold,600' rel='stylesheet'>
+    <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+    <style>
+        body {
+            padding: 8px;
+            margin: 0;
+            background-color: #ffffff;
+        }
+        .lin {
+            font-family: "Montserrat", sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 97vh;
+            /*background-color: #f0f0f0; !* Цвет фона *!*/
+            background-color: #ffffff;
+            margin: 0;
+        }
+
+        #lecount-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        #welcome {
+            color: rgba(51, 51, 51, 0.90);
+            font-family: Montserrat, sans-serif;
+            font-weight: bold;
+            font-size: 80px;
+        }
+
+        #lecount {
+            font-family: Montserrat, sans-serif;
+            font-weight: bold;
+            font-size: 80px;
+            animation: colorChange 5s infinite; /* Анимация смены цвета в течение 5 секунд */
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 5px;
+            align-items: flex-start;
+        }
+
+        .btn-primary {
+            margin: 0 10px;
+            border: 3px solid rgba(51, 51, 51, 0.90); /* Темный цвет бордера - например, черный */
+            border-radius: 10px; /* Закругленные углы */
+            padding: 10px 20px; /* Внутренний отступ кнопки */
+            text-decoration: none; /* Убираем подчеркивание ссылок */
+            color: #000; /* Цвет текста кнопки - черный */
+        }
+
+        @keyframes colorChange {
+            0% { color: #654ea3; }
+            50% { color: #eaafc8; }
+            100% { color: #654ea3; }
+
+        }
+    </style>
+</head>
+<body>
+<!--<div class = "logo">l e c o u n t</div>-->
+<div th:if="${param.logout}" class="alert alert-success">
+    You have been logged out.
+</div>
+<div class = "lin">
+    <div id="lecount-container">
+        <span id="welcome">велком ту &nbsp </span>
+        <div id="lecount">l e c o u n t</div>
+    </div>
+    <div class="btn-container">
+        <a class="btn btn-primary" th:href="@{/login}">Войти</a>
+        <a class="btn btn-primary" th:href="@{/register}">Зарегистрироваться</a>
+    </div>
+</div>
+</body>
+</html>

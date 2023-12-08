@@ -1,56 +1,87 @@
 package org.example.controllers;
 
+import org.example.model.Block;
+import org.example.model.UserEntity;
+import org.example.security.SecurityUtil;
+import org.example.service.BlockInterface;
+import org.example.service.BlockService;
+import org.example.service.UserInterface;
+import org.example.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Collections;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class AddNumberHistory {
 
-    private String history = "";
-    private int id = 1;
+    private BlockInterface blockinterface;
+    private UserInterface userinterface;
+
 
     @Autowired
-    private BlockService blockService;
-
-    @PostMapping("/greennumber")
-    @ResponseBody
-    public String Number(@RequestParam("number") int number) {
-        // Прибавляем к нему 100
-        String city = "Прибыль";
-        String html = "<div class='green'>"
-                + "<div id = 'rev-text'>" + city + "</div>"
-                + "<div id = 'money-text'>" + "+" + number + " ₽" +"</div>"
-                + "</div>";
-        history += html;
-        Block block = new Block(id, city, number);
-        blockService.create(block);
-        id += 1;
-        // Возвращаем обновленное значение суммы
-        return history;
+    public AddNumberHistory(BlockInterface blockinterface, UserInterface userinterface) {
+        this.blockinterface = blockinterface;
+        this.userinterface = userinterface;
     }
 
-    @PostMapping("/rednumber")
-    @ResponseBody
-    public String Number(@RequestParam("number") int number, @RequestParam("city") String city) {
-
-        String html = "<div class='red'>"
-                + "<div id = 'rev-text'>" + city + "</div>"
-                + "<div id = 'money-text'>" + "-" + number + " ₽" +"</div>"
-                + "</div>";
-        history += html;
-        Block block = new Block(id, city, number);
-        blockService.create(block);
-        id += 1;
-        // Возвращаем обновленное значение суммы
-        return history;
+    @GetMapping("/lecount")
+    public String sav() {
+        return "check";
     }
 
-    @DeleteMapping("/history/{id}")
-    public String deleteBLockById(@PathVariable("id") int id) {
-        return blockService.delete(id);
+    @GetMapping("/life")
+    public String handleLifeRequest(Model model) {
+        // Create a new Block
+        Block block = new Block();
+        UserEntity user = new UserEntity();
+
+        List<Block> blocks = blockinterface.findAllBlocks();
+
+        Collections.reverse(blocks);
+
+        String username = SecurityUtil.getSessionUser();
+        if(username != null) {
+            user = userinterface.findByUsername(username);
+            model.addAttribute("user", user);
+            model.addAttribute("totalIncome", blockinterface.getTotalIncome(user.getId()));
+            model.addAttribute("totalExpense", blockinterface.getTotalExpense(user.getId()));
+        }
+
+        // Add the block and blocks to the model
+        model.addAttribute("block", block);
+        model.addAttribute("blocks", blocks);
+        model.addAttribute("user", user);
+
+        // Return the view name
+        return "index";
     }
+
+
+    @PostMapping("/life/green")
+    public String saveGreen(@Valid @ModelAttribute("block") Block block) {
+        block.setType("доход");
+        blockinterface.saveBlock(block);
+        return "redirect:/life";
+    }
+
+    @PostMapping("/life/red")
+    public String saveRed(@Valid @ModelAttribute("block") Block block) {
+        block.setType("расход");
+        blockinterface.saveBlock(block);
+        return "redirect:/life";
+    }
+
+    @GetMapping("/life/delete/{id}")
+    public String handleDeleteRequest(@PathVariable Long id) {
+        blockinterface.deleteBlock(id);
+        return "redirect:/life";
+    }
+
 
 }
 
