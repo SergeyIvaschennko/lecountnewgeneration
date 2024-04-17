@@ -31,23 +31,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/login", "/register", "/lecount", "/css/**", "/js/**")
-//                .permitAll()
-//                .antMatchers("/life").hasAuthority("USER")
-////                .antMatchers("/products/new", "/products/{productId}/delete", "/products/{productId}", "/products/{productId}/edit").hasAnyAuthority("USER", "ADMIN")
-//                .and()
-//                .formLogin(form -> form
-//                        .loginPage("/login")
-//                        .defaultSuccessUrl("/life")
-//                        .loginProcessingUrl("/login")
-//                        .failureUrl("/login?error=true")
-//                        .permitAll()
-//                ).logout(
-//                        logout -> logout
-//                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
-//                );
         http.csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/login", "/register", "/lecount", "/css/**", "/js/**")
